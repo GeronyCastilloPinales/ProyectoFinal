@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SistemaCalificacionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Calificacion">
+          <Key>
+            <PropertyRef Name="CalificacionID" />
+          </Key>
+          <Property Name="CalificacionID" Type="int" Nullable="false" />
+          <Property Name="EstudianteID" Type="int" Nullable="false" />
+          <Property Name="MateriaID" Type="int" Nullable="false" />
+          <Property Name="Periodo1" Type="int" Nullable="false" />
+          <Property Name="Periodo2" Type="int" Nullable="false" />
+          <Property Name="Periodo3" Type="int" Nullable="false" />
+          <Property Name="Periodo4" Type="int" Nullable="false" />
+          <Property Name="Examen" Type="int" Nullable="false" />
+          <Property Name="TotalCalificacion" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="Clasificacion" Type="varchar" MaxLength="2" />
+          <Property Name="Estado" Type="varchar" MaxLength="20" />
+          <Property Name="FechaRegistro" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Estudiante">
+          <Key>
+            <PropertyRef Name="EstudianteID" />
+          </Key>
+          <Property Name="EstudianteID" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Apellido" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Curso" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Materia">
+          <Key>
+            <PropertyRef Name="MateriaID" />
+          </Key>
+          <Property Name="MateriaID" Type="int" Nullable="false" />
+          <Property Name="NombreMateria" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Calificac__Estud__4CA06362">
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
+          <End Role="Calificacion" Type="Self.Calificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="EstudianteID" />
+            </Principal>
+            <Dependent Role="Calificacion">
+              <PropertyRef Name="EstudianteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Calificac__Mater__4D94879B">
+          <End Role="Materia" Type="Self.Materia" Multiplicity="1" />
+          <End Role="Calificacion" Type="Self.Calificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materia">
+              <PropertyRef Name="MateriaID" />
+            </Principal>
+            <Dependent Role="Calificacion">
+              <PropertyRef Name="MateriaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SistemaCalificacionModelStoreContainer">
+          <EntitySet Name="Calificacion" EntityType="Self.Calificacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estudiante" EntityType="Self.Estudiante" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Materia" EntityType="Self.Materia" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Calificac__Estud__4CA06362" Association="Self.FK__Calificac__Estud__4CA06362">
+            <End Role="Estudiante" EntitySet="Estudiante" />
+            <End Role="Calificacion" EntitySet="Calificacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Calificac__Mater__4D94879B" Association="Self.FK__Calificac__Mater__4D94879B">
+            <End Role="Materia" EntitySet="Materia" />
+            <End Role="Calificacion" EntitySet="Calificacion" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SistemaCalificacionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Calificacion">
+          <Key>
+            <PropertyRef Name="CalificacionID" />
+          </Key>
+          <Property Name="CalificacionID" Type="Int32" Nullable="false" />
+          <Property Name="EstudianteID" Type="Int32" Nullable="false" />
+          <Property Name="MateriaID" Type="Int32" Nullable="false" />
+          <Property Name="Periodo1" Type="Int32" Nullable="false" />
+          <Property Name="Periodo2" Type="Int32" Nullable="false" />
+          <Property Name="Periodo3" Type="Int32" Nullable="false" />
+          <Property Name="Periodo4" Type="Int32" Nullable="false" />
+          <Property Name="Examen" Type="Int32" Nullable="false" />
+          <Property Name="TotalCalificacion" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="Clasificacion" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Estudiante" Relationship="Self.FK__Calificac__Estud__4CA06362" FromRole="Calificacion" ToRole="Estudiante" />
+          <NavigationProperty Name="Materia" Relationship="Self.FK__Calificac__Mater__4D94879B" FromRole="Calificacion" ToRole="Materia" />
+        </EntityType>
+        <EntityType Name="Estudiante">
+          <Key>
+            <PropertyRef Name="EstudianteID" />
+          </Key>
+          <Property Name="EstudianteID" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Apellido" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Curso" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Calificacion" Relationship="Self.FK__Calificac__Estud__4CA06362" FromRole="Estudiante" ToRole="Calificacion" />
+        </EntityType>
+        <EntityType Name="Materia">
+          <Key>
+            <PropertyRef Name="MateriaID" />
+          </Key>
+          <Property Name="MateriaID" Type="Int32" Nullable="false" />
+          <Property Name="NombreMateria" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Calificacion" Relationship="Self.FK__Calificac__Mater__4D94879B" FromRole="Materia" ToRole="Calificacion" />
+        </EntityType>
+        <Association Name="FK__Calificac__Estud__4CA06362">
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
+          <End Role="Calificacion" Type="Self.Calificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="EstudianteID" />
+            </Principal>
+            <Dependent Role="Calificacion">
+              <PropertyRef Name="EstudianteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Calificac__Mater__4D94879B">
+          <End Role="Materia" Type="Self.Materia" Multiplicity="1" />
+          <End Role="Calificacion" Type="Self.Calificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materia">
+              <PropertyRef Name="MateriaID" />
+            </Principal>
+            <Dependent Role="Calificacion">
+              <PropertyRef Name="MateriaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SistemaCalificacionEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Calificacion" EntityType="Self.Calificacion" />
+          <EntitySet Name="Estudiante" EntityType="Self.Estudiante" />
+          <EntitySet Name="Materia" EntityType="Self.Materia" />
+          <AssociationSet Name="FK__Calificac__Estud__4CA06362" Association="Self.FK__Calificac__Estud__4CA06362">
+            <End Role="Estudiante" EntitySet="Estudiante" />
+            <End Role="Calificacion" EntitySet="Calificacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Calificac__Mater__4D94879B" Association="Self.FK__Calificac__Mater__4D94879B">
+            <End Role="Materia" EntitySet="Materia" />
+            <End Role="Calificacion" EntitySet="Calificacion" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SistemaCalificacionModelStoreContainer" CdmEntityContainer="SistemaCalificacionEntities">
+          <EntitySetMapping Name="Calificacion">
+            <EntityTypeMapping TypeName="SistemaCalificacionModel.Calificacion">
+              <MappingFragment StoreEntitySet="Calificacion">
+                <ScalarProperty Name="CalificacionID" ColumnName="CalificacionID" />
+                <ScalarProperty Name="EstudianteID" ColumnName="EstudianteID" />
+                <ScalarProperty Name="MateriaID" ColumnName="MateriaID" />
+                <ScalarProperty Name="Periodo1" ColumnName="Periodo1" />
+                <ScalarProperty Name="Periodo2" ColumnName="Periodo2" />
+                <ScalarProperty Name="Periodo3" ColumnName="Periodo3" />
+                <ScalarProperty Name="Periodo4" ColumnName="Periodo4" />
+                <ScalarProperty Name="Examen" ColumnName="Examen" />
+                <ScalarProperty Name="TotalCalificacion" ColumnName="TotalCalificacion" />
+                <ScalarProperty Name="Clasificacion" ColumnName="Clasificacion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estudiante">
+            <EntityTypeMapping TypeName="SistemaCalificacionModel.Estudiante">
+              <MappingFragment StoreEntitySet="Estudiante">
+                <ScalarProperty Name="EstudianteID" ColumnName="EstudianteID" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Curso" ColumnName="Curso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Materia">
+            <EntityTypeMapping TypeName="SistemaCalificacionModel.Materia">
+              <MappingFragment StoreEntitySet="Materia">
+                <ScalarProperty Name="MateriaID" ColumnName="MateriaID" />
+                <ScalarProperty Name="NombreMateria" ColumnName="NombreMateria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
